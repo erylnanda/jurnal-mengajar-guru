@@ -16,9 +16,9 @@
                 <b>Petunjuk : </b><br>
                 <ul>
                     <li>
-                        Menu ini digunakan untuk menginput absensi siswa pada setiap masing-masing agenda kegiatan. Silakan klik tombol " <i class="fas fa-fw fa-edit"></i> " , dan akan muncul modal daftar siswa serta isian keterangan. Jangan lupa klik tombol <b><i>Simpan</i></b> di bagian bawah.</li>
+                        Menu ini digunakan untuk mengedit nilai tugas siswa pada setiap masing-masing kopentesi dasar. Silakan klik tombol " <i class="fas fa-fw fa-edit"></i> " , dan akan muncul modal daftar siswa serta isian nalainya. Jangan lupa klik tombol <b><i>Simpan</i></b> di bagian bawah.</li>
                     </li>
-                    <li>Apabila data pada tabel kosong, artinya data agenda kegiatan belum ditambahkan. Silahkan kembali ke menu agenda kegiatan lalu klik tombol <b><i>" Add Agenda "</i></b></li>
+                    <li>Apabila data pada tabel kosong, artinya data nilai tugas belum ditambahkan. Silahkan kembali ke halaman mapel diampu klik menu <b><i>" Input Nilai Tugas Baru "</i></b></li>
                 </ul>
             </div>
         </div>

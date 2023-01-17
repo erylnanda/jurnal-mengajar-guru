@@ -982,6 +982,6 @@ class Guru extends CI_Controller
         }
 
         $this->session->set_flashdata('message', '' . $i . ' Data Nilai berhasil di-rubah');
-        redirect('guru/tugas');
+        redirect('guru/ampu');
     }
 }

@@ -13,6 +13,7 @@ class Coba extends FPDF
         $this->Cell(400, 10, 'Dicetak pada ' . date('d/m/Y') . ' | &copy;  SMK Al Furqon Bantarkawung ', 0, 0, 'L');
         $this->Cell(400, 10, 'halaman ' . $this->PageNo() . ' dari {nb}', 0, 0, 'R');
     }
+    
 }
 
 $pdf = new Coba('L', 'pt', 'A4');
@@ -35,7 +36,7 @@ $pdf->Cell(0, 10, 'S M K  A L  F U R Q O N  B A N T A R K A W U N G', 0, 0, 'C')
 $pdf->Ln(14);
 $pdf->Cell(70);
 $pdf->SetFont('helvetica', 'I', 9);
-$pdf->Cell(0, 10, 'Jl. Raya Bantarkawung Gg. Al Furqon No.179, Bantarkawung  Telp. 087719312351', 0, 0, 'C');
+$pdf->Cell(0, 10, 'Jl. Raya Bantarkawung Gg. Al Furqon No.179, Bantarkawung  Telp. (0289) 4311151', 0, 0, 'C');
 $pdf->SetLineWidth(1);
 $pdf->Line(20, 72, 820, 72);
 $pdf->SetLineWidth(1, 5);
@@ -46,7 +47,7 @@ $pdf->SetFont('helvetica', 'BU', 13);
 $pdf->Cell(0, 10, $title, 0, 0, 'C');
 $pdf->Ln(25);
 
-$pdf->SetLeftMargin(60);
+$pdf->SetLeftMargin(10);
 $pdf->Ln(15);
 $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(60, 10, 'NIP', 0, 0, 'L');
@@ -67,9 +68,9 @@ $pdf->Cell(50, 15, "Jam Ke", 1, "LR", "C", true);
 $pdf->Cell(80, 15, "Kelas", 1, "LR", "C", true);
 $pdf->Cell(170, 15, "Mata Pelajaran", 1, "LR", "C", true);
 $pdf->Cell(200, 15, "Uraian Kegiatan", 1, "LR", "C", true);
-$pdf->Cell(100, 15, "Keterangan", 1, "LR", "C", true);
+$pdf->Cell(200, 15, "Keterangan", 1, "LR", "C", true);
 if (!empty($agenda)) {
-    $pdf->SetLeftMargin(60);
+    $pdf->SetLeftMargin(10);
     $pdf->Ln();
     $no = 0;
     $curY = $pdf->GetY();
@@ -97,7 +98,7 @@ if (!empty($agenda)) {
         $pdf->MultiCell(200, 15, $key->kodekd . " " . $key->namakd, 'LRT', "L");
         $curS = $pdf->GetY();
         $pdf->SetXY($pdf->GetX() + 620, $curY);
-        $pdf->MultiCell(100, 15, $key->keterangan, 'LRT', "L");
+        $pdf->MultiCell(200, 15, $key->keterangan, 'LRT', "L");
         if (($curA >= $curJ) && ($curA >= $curS)) {
             $curN = $curA;
         } else if (($curJ >= $curA) && ($curJ >= $curS)) {
@@ -107,7 +108,7 @@ if (!empty($agenda)) {
         } else {
             $curN = $curA;
         }
-        $pdf->SetLeftMargin(60);
+        $pdf->SetLeftMargin(10);
         $pdf->SetLineWidth(1);
         $pdf->Line($xAwal, $yAwal, $xAwal, $curN);
         $pdf->Line($xAwal + 20, $yAwal, $xAwal + 20, $curN);
@@ -116,8 +117,8 @@ if (!empty($agenda)) {
         $pdf->Line($xAwal + 250, $yAwal, $xAwal + 250, $curN);
         $pdf->Line($xAwal + 420, $yAwal, $xAwal + 420, $curN);
         $pdf->Line($xAwal + 620, $yAwal, $xAwal + 620, $curN);
-        $pdf->Line($xAwal + 720, $yAwal, $xAwal + 720, $curN);
-        $pdf->Line($xAwal, $curN, $xAwal + 720, $curN);
+        $pdf->Line($xAwal + 820, $yAwal, $xAwal + 820, $curN);
+        $pdf->Line($xAwal, $curN, $xAwal + 820, $curN);
         if ($curN >= 500) {
             $pdf->AddPage();
             $pdf->SetLeftMargin(60);
