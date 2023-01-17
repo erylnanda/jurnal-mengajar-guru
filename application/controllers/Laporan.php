@@ -30,6 +30,7 @@ class Laporan extends CI_Controller
         $data = [
             'title' => 'Rekap Data Kelas',
             'user'  => $this->admin->sesi(),
+            'kelas'     => $this->master->getKelas()
             
         ];
 
@@ -46,7 +47,8 @@ class Laporan extends CI_Controller
         $data    = [
             'title' => 'REKAPITULASI DATA KELAS',
             'tingkat' => $Tingkat,
-            'kelas' => $this->master->getKelasByTingkatan($Tingkat)
+            'kelas' => $this->master->getKelasByTingkatan($Tingkat),
+            'kelas'     => $this->master->getKelas()
         ];
 
         $this->load->view('report/datakelas', $data);
@@ -57,7 +59,8 @@ class Laporan extends CI_Controller
         $data = [
             'title' => 'Rekap Data Siswa',
             'user'  => $this->admin->sesi(),
-            'jurusan' => $this->master->getAllJurusan()
+            'jurusan' => $this->master->getAllJurusan(),
+            'kelas'     => $this->master->getKelas()
         ];
 
         $this->load->view('templates/header', $data);
@@ -89,6 +92,7 @@ class Laporan extends CI_Controller
         $data = [
             'title' => 'Rekap Data Ampu',
             'user'  => $this->admin->sesi(),
+            'kelas'     => $this->master->getKelas()
         ];
 
         $this->load->view('templates/header', $data);
@@ -119,7 +123,8 @@ class Laporan extends CI_Controller
         $data = [
             'title' => 'Rekap Data Agenda',
             'user'  => $this->admin->sesi(),
-            'guru'  => $this->master->getAllGuru()
+            'guru'  => $this->master->getAllGuru(),
+            'kelas'     => $this->master->getKelas()
         ];
 
         $this->load->view('templates/header', $data);
@@ -147,7 +152,8 @@ class Laporan extends CI_Controller
         $data = [
             'title' => 'Rekap Absensi',
             'user'  => $this->admin->sesi(),
-            'kelas' => $this->master->getkelas()
+            'kelas' => $this->master->getkelas(),
+            'kelas'     => $this->master->getKelas()
         ];
 
         $this->load->view('templates/header', $data);

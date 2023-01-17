@@ -29,7 +29,8 @@
                             </div>
                             <ul class="list-group mt-2">
                                 <li class="list-group-item"><a href="<?= base_url('guru/n_pengetahuan/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> Nilai Pengetahuan</a></li>
-                                <li class="list-group-item"><a href="<?= base_url('guru/n_Tugas/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> Nilai Tugas</a></li>
+                                <li class="list-group-item"><a href="<?= base_url('guru/n_Tugas/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> Input Nilai Tugas Baru</a></li>
+                                <li class="list-group-item"><a href="<?= base_url('guru/tugas/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> List Nilai Tugas</a></li>
                                 <li class="list-group-item"><a href="<?= base_url('guru/n_pts/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> Penilaian Tengah Semester</a></li>
                                 <li class="list-group-item"><a href="<?= base_url('guru/n_pas/' . $a['idmengajar']); ?>"><i class="fas fa-fw fa-chevron-right"></i> Penilaian Akhir Semester</a></li>
                             </ul>

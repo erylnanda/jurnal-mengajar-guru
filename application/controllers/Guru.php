@@ -517,12 +517,17 @@ class Guru extends CI_Controller
     {
         $p = $this->input->post();
         $i = 0;
+        $tugas = $this->master->getKompById($p['idkd']);
+        $t = $tugas['tugas']+1;
 
         foreach ($p['nilai'] as $s) {
-            $this->db->query("INSERT INTO tb_nilai_ket (idmengajar, idkd, nis, nilai) VALUES ('" . $p['idmengajar'] . "', '" . $p['idkd'] . "', '" . $p['nis'][$i] . "', '" . $s . "')");
+            $this->db->query("INSERT INTO tb_nilai_ket (idmengajar, idkd, nis, nilai, tugas) VALUES ('" . $p['idmengajar'] . "', '" . $p['idkd'] . "', '" . $p['nis'][$i] . "', '" . $s . "' , '" . $t ."')");
 
             $i++;
         }
+        $this->db->set('tugas', $t);
+        $this->db->where('idkd', $p['idkd']);
+        $this->db->update('tb_kompdasar');
 
         $this->session->set_flashdata('message', '' . $i . ' Data nilai Tugas berhasil ditambah-kan');
         redirect('guru/ampu');
@@ -710,7 +715,7 @@ class Guru extends CI_Controller
 
     public function cetaknk($bawa)
     {
-        $pc_bawa = explode("-", $bawa);
+        $pc_bawa = explode("_", $bawa);
 
         $html = '';
 
@@ -888,6 +893,48 @@ class Guru extends CI_Controller
         $this->load->view('guru/cekabsen', $data);
         $this->load->view('templates/footer');
     }
+
+    public function tugas()
+    {
+        $idajar = $this->uri->segment(3);
+        $ambil = $this->master->getAjarById($idajar);
+        $data = [
+            'title'     => 'Nilai Tugas',
+            'subtitle'  => 'List Nilai KD',
+            'user'      => $this->admin->sesi(),
+            'tugas'    => $this->master->getKompdasarByMapel($ambil['kodemapel']),
+            'kelas'     => $this->master->getKelasById($ambil['kodekelas']),
+            'idajar'    => $idajar,
+            'mapel'     => $this->master->getMapelById($ambil['kodemapel'])
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('guru/riwayattugas', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function edittugas()
+    {
+        $idkd = $this->uri->segment(3);
+        $tugas = $this->uri->segment(4);
+        $idajar = $this->uri->segment(5);
+        $idkelas = $this->uri->segment(6);
+
+        $data = [
+            'title' => 'Edit Absensi',
+            'user'  => $this->admin->sesi(),
+            'ambil' => $this->guru->getTugas($idkd, $tugas, $idajar, $idkelas)
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('guru/cektugas', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function riwayatabsen()
     {
         $kelas = $this->uri->segment(3);
@@ -921,5 +968,20 @@ class Guru extends CI_Controller
 
         $this->session->set_flashdata('message', '' . $i . ' Data absensi berhasil di-rubah');
         redirect('guru');
+    }
+
+    public function update_tugas()
+    {
+        $p = $this->input->post();
+        $i = 0;
+
+        foreach ($p['nilai'] as $s) {
+            $this->db->query("UPDATE tb_nilai_ket SET nilai = '$s' WHERE id = '" . $p['id'][$i] . "' ");
+
+            $i++;
+        }
+
+        $this->session->set_flashdata('message', '' . $i . ' Data Nilai berhasil di-rubah');
+        redirect('guru/tugas');
     }
 }

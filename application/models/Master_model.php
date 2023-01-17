@@ -353,6 +353,17 @@ class Master_model extends CI_Model
         return $result->result_array();
     }
 
+    public function getKompdasarByMapel($id)
+    {
+        $this->db->select('tb_kompdasar.*, tb_mapel.namamapel');
+        $this->db->from('tb_kompdasar');
+        $this->db->join('tb_mapel', 'tb_mapel.kodemapel = tb_kompdasar.kodemapel', 'left');        
+        $this->db->where('tb_kompdasar.kodemapel', $id);
+        // $this->db->where('tb_agenda.status_absen', 0);
+        $result = $this->db->get();
+        return $result->result_array();
+    }
+
     public function getKompById($id)
     {
         return $this->db->get_where('tb_kompdasar', ['idkd' => $id])->row_array();

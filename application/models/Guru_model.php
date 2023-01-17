@@ -157,6 +157,17 @@ class Guru_model extends CI_Model
         return $hasil->result();
     }
 
+    public function getTugas($idkd, $tugas, $idajar, $kelas)
+    {
+        $this->db->select('a.nis, a.namasiswa, b.nilai, b.id');
+        $this->db->from('tb_nilai_ket b');
+        $this->db->join('tb_siswa a', 'a.nis = b.nis', 'left');
+        $this->db->where('a.kodekelas', $kelas);
+        $this->db->where('b.tugas', $tugas);
+        $hasil = $this->db->get();
+        return $hasil->result();
+    }
+
     public function ambilagenda($kode)
     {
         $this->db->select('tb_mengajar.kodemapel, tb_mengajar.idmengajar');
