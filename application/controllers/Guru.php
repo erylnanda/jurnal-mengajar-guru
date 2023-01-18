@@ -880,11 +880,12 @@ class Guru extends CI_Controller
     {
         $kelas = $this->uri->segment(3);
         $tanggal = $this->uri->segment(4);
+        $idagenda = $this->uri->segment(5);
 
         $data = [
             'title' => 'Edit Absensi',
             'user'  => $this->admin->sesi(),
-            'ambil' => $this->guru->getAbsen($kelas, $tanggal)
+            'ambil' => $this->guru->getAbsen($kelas, $tanggal,$idagenda)
         ];
 
         $this->load->view('templates/header', $data);

@@ -67,8 +67,8 @@ $pdf->Cell(100, 15, "Tanggal", 1, "LR", "C", true);
 $pdf->Cell(50, 15, "Jam Ke", 1, "LR", "C", true);
 $pdf->Cell(80, 15, "Kelas", 1, "LR", "C", true);
 $pdf->Cell(170, 15, "Mata Pelajaran", 1, "LR", "C", true);
-$pdf->Cell(200, 15, "Uraian Kegiatan", 1, "LR", "C", true);
-$pdf->Cell(200, 15, "Keterangan", 1, "LR", "C", true);
+$pdf->Cell(400, 15, "Uraian Kegiatan", 1, "LR", "C", true);
+// $pdf->Cell(200, 15, "Keterangan", 1, "LR", "C", true);
 if (!empty($agenda)) {
     $pdf->SetLeftMargin(10);
     $pdf->Ln();
@@ -93,18 +93,16 @@ if (!empty($agenda)) {
         $curA = $pdf->GetY();
         $pdf->SetXY($pdf->GetX() + 250, $curY);
         $pdf->MultiCell(170, 15, $key->namamapel, 'lRT', "L");
+        // $curJ = $pdf->GetY();
+        // $pdf->SetXY($pdf->GetX() + 420, $curY);
+        // $pdf->MultiCell(200, 15, $key->kodekd . " " . $key->namakd, 'LRT', "L");
         $curJ = $pdf->GetY();
         $pdf->SetXY($pdf->GetX() + 420, $curY);
-        $pdf->MultiCell(200, 15, $key->kodekd . " " . $key->namakd, 'LRT', "L");
-        $curS = $pdf->GetY();
-        $pdf->SetXY($pdf->GetX() + 620, $curY);
-        $pdf->MultiCell(200, 15, $key->keterangan, 'LRT', "L");
-        if (($curA >= $curJ) && ($curA >= $curS)) {
+        $pdf->MultiCell(400, 15, $key->keterangan, 'LRT', "L");
+        if ($curA >= $curJ) {
             $curN = $curA;
-        } else if (($curJ >= $curA) && ($curJ >= $curS)) {
+        } else if ($curJ >= $curA) {
             $curN = $curJ;
-        } else if (($curS >= $curA) && ($curS >= $curJ)) {
-            $curN = $curS;
         } else {
             $curN = $curA;
         }
@@ -116,7 +114,7 @@ if (!empty($agenda)) {
         $pdf->Line($xAwal + 170, $yAwal, $xAwal + 170, $curN);
         $pdf->Line($xAwal + 250, $yAwal, $xAwal + 250, $curN);
         $pdf->Line($xAwal + 420, $yAwal, $xAwal + 420, $curN);
-        $pdf->Line($xAwal + 620, $yAwal, $xAwal + 620, $curN);
+        // $pdf->Line($xAwal + 620, $yAwal, $xAwal + 620, $curN);
         $pdf->Line($xAwal + 820, $yAwal, $xAwal + 820, $curN);
         $pdf->Line($xAwal, $curN, $xAwal + 820, $curN);
         if ($curN >= 500) {

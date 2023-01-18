@@ -67,7 +67,7 @@ class Guru_model extends CI_Model
 
     public function kode_absen()
     {
-        $this->db->select('RIGHT(tb_absensi.kodeabsen, 2) as kode', FALSE);
+        $this->db->select('RIGHT(tb_absensi.kodeabsen, 6) as kode', FALSE);
         $this->db->from('tb_absensi');
         $this->db->order_by('kodeabsen', 'DESC');
         $this->db->limit(1);
@@ -80,7 +80,7 @@ class Guru_model extends CI_Model
             //jika kode belum ada      
             $kode = 1;
         }
-        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT); // angka 3 menunjukkan jumlah digit angka 0
+        $kodemax = str_pad($kode, 6, "0", STR_PAD_LEFT); // angka 3 menunjukkan jumlah digit angka 0
         $kodehasil = "ABN" . $kodemax;
         return $kodehasil;
     }
@@ -146,13 +146,15 @@ class Guru_model extends CI_Model
         return $result->result_array();
     }
 
-    public function getAbsen($kelas, $tanggal)
+    public function getAbsen($kelas, $tanggal, $idagenda)
     {
-        $this->db->select('a.nis, a.namasiswa, b.keterangan');
+        $this->db->select('a.nis, a.namasiswa, b.keterangan, c.idmengajar');
         $this->db->from('tb_absensi b');
         $this->db->join('tb_siswa a', 'a.nis = b.nis', 'left');
+        $this->db->join('tb_agenda c', 'c.idmengajar = b.idmengajar', 'left');
         $this->db->where('a.kodekelas', $kelas);
         $this->db->where('b.tglabsen', $tanggal);
+        $this->db->where('c.idagenda', $idagenda);
         $hasil = $this->db->get();
         return $hasil->result();
     }

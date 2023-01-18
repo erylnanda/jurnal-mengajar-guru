@@ -58,7 +58,7 @@
                                             <?php if($a['status_absen']==0){?>
                                             <button type="button" data-toggle="modal" data-target="#modal-absen" data-kelas="<?= $a['kodekelas']; ?>" data-idagenda="<?= $a['idagenda']; ?>" class="btn btn-sm  btn-outline-success tombolTambahAbsen" title="Input Absen"><i class="fas fa-fw fa-edit"></i> Input Absen</button>
                                             <?php  } else if ($a['status_absen'] == 1) { ?>
-                                            <a href="<?= base_url('guru/cekabsen/' . $a['kodekelas'] . '/' . $a['tanggal']); ?>" class="btn btn-sm btn-outline-primary" title="Edit Absen"><i class="fas fa-fw fa-pencil-alt"></i> Edit Absen</a>
+                                            <a href="<?= base_url('guru/cekabsen/' . $a['kodekelas'] . '/' . $a['tanggal'] . "/" . $a['idagenda']); ?>" class="btn btn-sm btn-outline-primary" title="Edit Absen"><i class="fas fa-fw fa-pencil-alt"></i> Edit Absen</a>
                                             <?php } ?>
                                         </td>
                                     </tr>
