@@ -987,4 +987,21 @@ class Guru extends CI_Controller
         $this->session->set_flashdata('message', '' . $i . ' Data Nilai berhasil di-rubah');
         redirect('guru/ampu');
     }
+
+    public function dataagendaguru()
+    {
+        $nip = $this->session->userdata('namauser');
+        $data = [
+            'title' => 'Rekap Agenda Guru',
+            'user'  => $this->admin->sesi(),
+            'guru'  => $this->master->getGuruById($nip),
+            'kelas' => $this->master->getKelas()
+        ];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('guru/filter-agenda', $data);
+        $this->load->view('templates/footer');
+    }
 }

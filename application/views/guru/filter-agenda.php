@@ -23,17 +23,14 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($guru as $g) : ?>
                                     <tr>
                                         <th scope="row"><?= $i; ?></th>
-                                        <td><?= $g['nip']; ?></td>
-                                        <td><?= $g['namaguru']; ?></td>
+                                        <td><?= $guru['nip']; ?></td>
+                                        <td><?= $guru['namaguru']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('laporan/reportagenda/' . $g['nip']); ?>" class="btn btn-outline-info btn-sm">Cetak Agenda</a>
+                                            <a href="<?= base_url('laporan/reportagenda/' . $guru['nip']); ?>" class="btn btn-outline-info btn-sm">Cetak Agenda</a>
                                         </td>
                                     </tr>
-                                    <?php $i++; ?>
-                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
