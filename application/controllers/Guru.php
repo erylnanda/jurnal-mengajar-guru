@@ -903,11 +903,12 @@ class Guru extends CI_Controller
             'title'     => 'Nilai Tugas',
             'subtitle'  => 'List Nilai KD',
             'user'      => $this->admin->sesi(),
-            'tugas'    => $this->master->getKompdasarByMapel($ambil['kodemapel']),
+            'tugas'    => $this->master->getKompdasarByMapel($ambil['kodemapel'],$idajar),
             'kelas'     => $this->master->getKelasById($ambil['kodekelas']),
             'idajar'    => $idajar,
             'mapel'     => $this->master->getMapelById($ambil['kodemapel'])
         ];
+        // var_dump($data['tugas']);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -924,7 +925,7 @@ class Guru extends CI_Controller
         $idkelas = $this->uri->segment(6);
 
         $data = [
-            'title' => 'Edit Absensi',
+            'title' => 'Edit Nilai Tugas',
             'user'  => $this->admin->sesi(),
             'ambil' => $this->guru->getTugas($idkd, $tugas, $idajar, $idkelas)
         ];
@@ -941,12 +942,13 @@ class Guru extends CI_Controller
         $kelas = $this->uri->segment(3);
         $mengajar = $this->uri->segment(4);
         $q = $this->db->get_where('tb_kelas', ['kodekelas' => $kelas])->row_array();
+        $nip = $this->session->userdata('namauser');
 
         $data = [
             'title' => 'Rekap Absensi',
             'user'  => $this->admin->sesi(),
-            'kelas'     => $q,
-            'ambil' => $this->master->getAbsenbyMengajar($kelas, $mengajar)->result()
+            'kelas' => $q,
+            'ambil' => $this->master->getAbsenbyMengajar($kelas, $mengajar,$nip)->result()
         ];
 
         $this->load->view('templates/header', $data);

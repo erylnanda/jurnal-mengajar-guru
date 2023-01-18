@@ -35,7 +35,7 @@
                                         <td>
                                             <a href="<?= base_url('guru/cetak/' . $r['idmengajar']); ?>" class="btn btn-sm btn-outline-info" target="_blank">Cetak NP</a>
                                             <a href="<?= base_url('guru/cetaknk/' . $r['kodemapel'] . '_' . $r['kodekelas']); ?>" class="btn btn-sm btn-outline-info" target="_blank">Cetak NK</a>
-                                            <a href="<?= base_url('guru/riwayatabsen/' . $r['kodekelas'] . '/' . $r['idmengajar']); ?>" class="btn btn-sm btn-outline-primary" title="Edit Absen"><i class="fas fa-fw fa-pencil-alt"></i> Riwayat Absen</a>
+                                            <a href="<?= base_url('guru/riwayatabsen/' . $r['kodekelas'] . '/' . $r['idmengajar']); ?>" class="btn btn-sm btn-outline-primary" title="Riwayat Absen"><i class="fas fa-fw fa-pencil-alt"></i> Riwayat Absen</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

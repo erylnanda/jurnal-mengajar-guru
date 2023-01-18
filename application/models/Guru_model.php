@@ -164,6 +164,8 @@ class Guru_model extends CI_Model
         $this->db->select('a.nis, a.namasiswa, b.nilai, b.id');
         $this->db->from('tb_nilai_ket b');
         $this->db->join('tb_siswa a', 'a.nis = b.nis', 'left');
+        $this->db->where('b.idmengajar', $idajar);
+        $this->db->where('b.idkd', $idkd);
         $this->db->where('a.kodekelas', $kelas);
         $this->db->where('b.tugas', $tugas);
         $hasil = $this->db->get();

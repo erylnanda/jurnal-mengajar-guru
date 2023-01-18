@@ -353,12 +353,17 @@ class Master_model extends CI_Model
         return $result->result_array();
     }
 
-    public function getKompdasarByMapel($id)
+    public function getKompdasarByMapel($id,$idajar)
     {
         $this->db->select('tb_kompdasar.*, tb_mapel.namamapel');
         $this->db->from('tb_kompdasar');
-        $this->db->join('tb_mapel', 'tb_mapel.kodemapel = tb_kompdasar.kodemapel', 'left');        
+        $this->db->join('tb_mapel', 'tb_kompdasar.kodemapel = tb_mapel.kodemapel', 'left');
+        $this->db->join('tb_nilai_ket', 'tb_kompdasar.idkd = tb_nilai_ket.idkd', 'left');
+        $this->db->where('tb_nilai_ket.idmengajar', $idajar);         
         $this->db->where('tb_kompdasar.kodemapel', $id);
+        $this->db->where('tb_kompdasar.jenis', 'K');
+        $this->db->where_not_in('tb_kompdasar.tugas', 0);
+        // $this->db->limit(1);
         // $this->db->where('tb_agenda.status_absen', 0);
         $result = $this->db->get();
         return $result->result_array();
@@ -483,16 +488,18 @@ class Master_model extends CI_Model
         return $this->db->query($sql);
     }
 
-    public function getAbsenbyMengajar($kelas, $mengajar)
+    public function getAbsenbyMengajar($kelas, $mengajar, $nip)
     {
         $sql = "SELECT tb_siswa.nis, tb_siswa.namasiswa,
 
                 /* ----------- jumlah hadir ------------*/
                 IFNULL((SELECT COUNT(tb_absensi.keterangan)
                 FROM tb_absensi
+                LEFT JOIN tb_mengajar ON tb_mengajar.idmengajar = tb_absensi.idmengajar
                 WHERE tb_absensi.keterangan = 'H'
                 AND tb_absensi.idmengajar = '$mengajar'
                 AND tb_absensi.nis = tb_siswa.nis
+                AND tb_mengajar.nip = $nip
                 AND tb_absensi.nis IN (SELECT tb_siswa.nis
                                 FROM tb_siswa
                                 WHERE tb_siswa.kodekelas = '$kelas'
@@ -503,9 +510,11 @@ class Master_model extends CI_Model
                 /* ----------- jumlah sakit ------------*/
                 IFNULL((SELECT COUNT(tb_absensi.keterangan)
                 FROM tb_absensi
+                LEFT JOIN tb_mengajar ON tb_mengajar.idmengajar = tb_absensi.idmengajar
                 WHERE tb_absensi.keterangan = 'S'
                 AND tb_absensi.idmengajar = '$mengajar'
                 AND tb_absensi.nis = tb_siswa.nis
+                AND tb_mengajar.nip = $nip
                 AND tb_absensi.nis IN (SELECT tb_siswa.nis
                                 FROM tb_siswa
                                 WHERE tb_siswa.kodekelas = '$kelas'
@@ -516,9 +525,11 @@ class Master_model extends CI_Model
                 /* ----------- jumlah ijin ------------*/
                 IFNULL((SELECT COUNT(tb_absensi.keterangan)
                 FROM tb_absensi
+                LEFT JOIN tb_mengajar ON tb_mengajar.idmengajar = tb_absensi.idmengajar
                 WHERE tb_absensi.keterangan = 'I'
                 AND tb_absensi.idmengajar = '$mengajar'
                 AND tb_absensi.nis = tb_siswa.nis
+                AND tb_mengajar.nip = $nip
                 AND tb_absensi.nis IN (SELECT tb_siswa.nis
                                 FROM tb_siswa
                                 WHERE tb_siswa.kodekelas = '$kelas'
@@ -529,9 +540,11 @@ class Master_model extends CI_Model
                 /* ----------- jumlah alpa ------------*/
                 IFNULL((SELECT COUNT(tb_absensi.keterangan)
                 FROM tb_absensi
+                LEFT JOIN tb_mengajar ON tb_mengajar.idmengajar = tb_absensi.idmengajar
                 WHERE tb_absensi.keterangan = 'A'
                 AND tb_absensi.idmengajar = '$mengajar'
                 AND tb_absensi.nis = tb_siswa.nis
+                AND tb_mengajar.nip = $nip
                 AND tb_absensi.nis IN (SELECT tb_siswa.nis
                                 FROM tb_siswa
                                 WHERE tb_siswa.kodekelas = '$kelas'

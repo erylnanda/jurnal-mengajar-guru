@@ -47,8 +47,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; ?>
-                                <?php foreach ($tugas as $a) : ?>
+                                <?php $i = 1; 
+                                $b = "a";?>
+                                <?php foreach ($tugas as $a) :
+                                    if (($a['namakd']!=$b)&&($a["tugas"]<=$i)) {?>
                                     <?php for ($x=0; $x<$a["tugas"]; $x++) {
                                         $v = $x+1 ?>
                                         <tr>
@@ -57,11 +59,12 @@
                                             <td><?= $a['namakd']; ?></td>
                                             <td><?= $v ?></td>
                                             <td>
-                                                <a href="<?= base_url('guru/edittugas/' . $a['idkd'] . '/' . $v . '/' . $idajar . '/' . $kelas['kodekelas']); ?>" class="btn btn-sm btn-outline-primary" title="Edit Absen"><i class="fas fa-fw fa-pencil-alt"></i> Edit Nilai</a>
+                                                <a href="<?= base_url('guru/edittugas/' . $a['idkd'] . '/' . $v . '/' . $idajar . '/' . $kelas['kodekelas']); ?>" class="btn btn-sm btn-outline-primary" title="Edit Nilai"><i class="fas fa-fw fa-pencil-alt"></i> Edit Nilai</a>
                                             </td>
                                         </tr>
-                                    <?php } ?>
-                                    <?php $i++; ?>
+                                        <?php $i++; ?>
+                                    <?php }
+                                        } $b = $a['namakd'];?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
